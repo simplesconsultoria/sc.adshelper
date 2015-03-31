@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="sc.adshelper">
+
+  <includeDependencies package="." />
+
+  <permission
+      id="sc.adshelper.AddExample"
+      title="sc.adshelper: Add Example"
+      />
+
+  <include file="profiles.zcml" />
+
+</configure>
