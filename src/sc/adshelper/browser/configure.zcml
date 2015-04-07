@@ -3,6 +3,12 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="sc.adshelper">
 
+  <browser:resourceDirectory
+      name="sc.adshelper"
+      directory="static"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      />
+
   <browser:page
       name="adshelper-settings"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
