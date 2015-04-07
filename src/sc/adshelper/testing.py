@@ -12,13 +12,11 @@ class Fixture(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
-        # Load ZCML
         import sc.adshelper
         self.loadZCML(package=sc.adshelper)
 
     def setUpPloneSite(self, portal):
-        self.applyProfile(
-            portal, 'sc.adshelper:default')
+        self.applyProfile(portal, 'sc.adshelper:default')
 
 
 FIXTURE = Fixture()
