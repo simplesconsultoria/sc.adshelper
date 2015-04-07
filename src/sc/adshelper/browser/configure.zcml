@@ -16,4 +16,12 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:viewlet
+      name="adshelper.head"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      template="templates/head.pt"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      permission="zope2.View"
+      />
+
 </configure>
