@@ -1,9 +1,5 @@
-<configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:i18n="http://namespaces.zope.org/i18n"
-    i18n_domain="sc.adshelper">
+<configure xmlns="http://namespaces.zope.org/zope">
 
-  <!-- Passos de atualizacao -->
-  <include package=".v1010" />
+  <include package=".v2" />
 
 </configure>

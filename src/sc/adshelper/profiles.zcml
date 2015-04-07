@@ -23,11 +23,9 @@
       i18n:attributes="title; description"
       />
 
-  <include package=".upgrades" />
+  <utility factory=".setuphandlers.HiddenProfiles" name="sc.adshelper" />
+  <utility factory=".setuphandlers.HiddenProducts" name="sc.adshelper" />
 
-  <utility
-      factory=".config.HiddenProfiles"
-      name="sc.adshelper"
-      />
+  <!--include package=".upgrades" /-->
 
 </configure>

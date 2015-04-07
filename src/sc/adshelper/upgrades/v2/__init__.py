@@ -6,8 +6,8 @@ import logging
 
 
 def apply_profile(context):
-    """Atualiza perfil para versao 1010."""
+    """Atualiza perfil para versao 2."""
     logger = logging.getLogger(PROJECTNAME)
-    profile = 'profile-sc.adshelper.upgrades.v1010:default'
+    profile = 'profile-sc.adshelper.upgrades.v2:default'
     loadMigrationProfile(context, profile)
-    logger.info('Atualizado para versao 1010')
+    logger.info('Atualizado para versao 2')
