@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="sc.adshelper">
+
+  <browser:page
+      name="adshelper-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class="sc.adshelper.controlpanel.AdsHelperSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+</configure>
