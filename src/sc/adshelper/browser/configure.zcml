@@ -26,6 +26,24 @@
       />
 
   <browser:viewlet
+      name="adshelper.abovecontent"
+      class=".viewlets.AboveContentViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+      template="templates/abovecontent.pt"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      name="adshelper.belowcontent"
+      class=".viewlets.BelowContentViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContent"
+      template="templates/belowcontent.pt"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
       name="adshelper.footer"
       class=".viewlets.FooterViewlet"
       manager="plone.app.layout.viewlets.interfaces.IPortalFooter"

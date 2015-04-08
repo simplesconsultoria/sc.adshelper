@@ -14,9 +14,27 @@ class HtmlHeadViewlet(ViewletBase):
         return api.portal.get_registry_record(BASE_REGISTRY + 'html_head')
 
 
+class AboveContentViewlet(ViewletBase):
+
+    """Viewlet to be rendered above the content of the page."""
+
+    def render(self):
+        """Return the content of the above_content record."""
+        return api.portal.get_registry_record(BASE_REGISTRY + 'above_content')
+
+
+class BelowContentViewlet(ViewletBase):
+
+    """Viewlet to be rendered below the content of the page."""
+
+    def render(self):
+        """Return the content of the below_content record."""
+        return api.portal.get_registry_record(BASE_REGISTRY + 'below_content')
+
+
 class FooterViewlet(ViewletBase):
 
-    """Viewlet to be rendered at the end of the document."""
+    """Viewlet to be rendered at the end of the page."""
 
     def render(self):
         """Return the content of the footer record."""
