@@ -17,9 +17,19 @@
       />
 
   <browser:viewlet
-      name="adshelper.head"
+      name="adshelper.htmlhead"
+      class=".viewlets.HtmlHeadViewlet"
       manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
-      template="templates/head.pt"
+      template="templates/htmlhead.pt"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
+      name="adshelper.footer"
+      class=".viewlets.FooterViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+      template="templates/footer.pt"
       layer="sc.adshelper.interfaces.IBrowserLayer"
       permission="zope2.View"
       />

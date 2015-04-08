@@ -2,6 +2,7 @@
 from plone import api
 from plone.app.testing import logout
 from plone.registry.interfaces import IRegistry
+from sc.adshelper.config import BASE_REGISTRY
 from sc.adshelper.config import PROJECTNAME
 from sc.adshelper.controlpanel import IAdsHelperSettings
 from sc.adshelper.testing import INTEGRATION_TESTING
@@ -58,9 +59,13 @@ class RegistryTestCase(unittest.TestCase):
         self.registry = getUtility(IRegistry)
         self.settings = self.registry.forInterface(IAdsHelperSettings)
 
-    def test_head_record_in_registry(self):
-        self.assertTrue(hasattr(self.settings, 'head'))
-        self.assertIsNone(self.settings.head)
+    def test_html_head_record_in_registry(self):
+        self.assertTrue(hasattr(self.settings, 'html_head'))
+        self.assertEqual(self.settings.html_head, u'')
+
+    def test_footer_record_in_registry(self):
+        self.assertTrue(hasattr(self.settings, 'footer'))
+        self.assertEqual(self.settings.footer, u'')
 
     def test_records_removed_on_uninstall(self):
         qi = self.portal['portal_quickinstaller']
@@ -68,9 +73,9 @@ class RegistryTestCase(unittest.TestCase):
         with api.env.adopt_roles(['Manager']):
             qi.uninstallProducts(products=[PROJECTNAME])
 
-        BASE_REGISTRY = 'sc.adshelper.controlpanel.IAdsHelperSettings.'
         records = [
-            BASE_REGISTRY + 'head',
+            BASE_REGISTRY + 'html_head',
+            BASE_REGISTRY + 'footer',
         ]
 
         for r in records:
