@@ -11,11 +11,19 @@ class AdsHelperViewletBase(ViewletBase):
 
     def show(self):
         """Return True if the viewlet will be visible.
+
         Viewlets will be visible for anonymous users only, unless
         we define in the control panel configlet that authenticated
         users will also see the code.
+
+        As a security measure, viewlets are never shown in the context
+        of the configlet. This way we can revert the inclusion of any
+        code that breaks the layout.
         """
-        return api.user.is_anonymous() | self.show_authenticated
+        context_state = api.content.get_view(
+            u'plone_context_state', self.context, self.request)
+        is_configlet = '@@adshelper-settings' in context_state.current_page_url()
+        return not is_configlet and api.user.is_anonymous() or self.show_authenticated
 
 
 class HtmlHeadViewlet(AdsHelperViewletBase):
