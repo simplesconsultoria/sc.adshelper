@@ -3,7 +3,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="sc.adshelper"
     purge="False">
-    <configlet title="Ads Helper Settings"
+    <configlet title="Ads Helper"
         action_id="adshelper"
         appId="sc.adshelper"
         category="Products"
