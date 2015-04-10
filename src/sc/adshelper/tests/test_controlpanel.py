@@ -59,6 +59,10 @@ class RegistryTestCase(unittest.TestCase):
         self.registry = getUtility(IRegistry)
         self.settings = self.registry.forInterface(IAdsHelperSettings)
 
+    def test_show_authenticated_record_in_registry(self):
+        self.assertTrue(hasattr(self.settings, 'show_authenticated'))
+        self.assertEqual(self.settings.show_authenticated, False)
+
     def test_html_head_record_in_registry(self):
         self.assertTrue(hasattr(self.settings, 'html_head'))
         self.assertEqual(self.settings.html_head, u'')
@@ -82,6 +86,7 @@ class RegistryTestCase(unittest.TestCase):
             qi.uninstallProducts(products=[PROJECTNAME])
 
         records = [
+            BASE_REGISTRY + 'show_authenticated',
             BASE_REGISTRY + 'html_head',
             BASE_REGISTRY + 'above_content',
             BASE_REGISTRY + 'below_content',

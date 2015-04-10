@@ -10,7 +10,12 @@ class AdsHelperViewletBase(ViewletBase):
     """Base class for Ads Helper viewlets."""
 
     def show(self):
-        return api.user.is_anonymous()
+        """Return True if the viewlet will be visible.
+        Viewlets will be visible for anonymous users only, unless
+        we define in the control panel configlet that authenticated
+        users will also see the code.
+        """
+        return api.user.is_anonymous() | self.show_authenticated
 
 
 class HtmlHeadViewlet(AdsHelperViewletBase):
@@ -19,6 +24,7 @@ class HtmlHeadViewlet(AdsHelperViewletBase):
 
     def update(self):
         """Update viewlet with the content of the html_head record."""
+        self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
         self.code = api.portal.get_registry_record(BASE_REGISTRY + 'html_head')
 
 
@@ -28,6 +34,7 @@ class AboveContentViewlet(AdsHelperViewletBase):
 
     def update(self):
         """Update viewlet with the content of the above_content record."""
+        self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
         self.code = api.portal.get_registry_record(BASE_REGISTRY + 'above_content')
 
 
@@ -37,6 +44,7 @@ class BelowContentViewlet(AdsHelperViewletBase):
 
     def update(self):
         """Update viewlet with the content of the below_content record."""
+        self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
         self.code = api.portal.get_registry_record(BASE_REGISTRY + 'below_content')
 
 
@@ -46,4 +54,5 @@ class FooterViewlet(AdsHelperViewletBase):
 
     def update(self):
         """Update viewlet with the content of the footer record."""
+        self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
         self.code = api.portal.get_registry_record(BASE_REGISTRY + 'footer')

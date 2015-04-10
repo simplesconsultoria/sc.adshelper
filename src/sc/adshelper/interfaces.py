@@ -14,6 +14,15 @@ class IAdsHelperSettings(form.Schema):
 
     """Schema for the control panel form."""
 
+    show_authenticated = schema.Bool(
+        title=_(u'Show to authenticated users?'),
+        description=_(
+            u'By default, viewlets will be visible for anonymous users only.'
+            u'If selected, the code will be shown to authenticated users also.'
+        ),
+        default=False,
+    )
+
     html_head = schema.Text(
         title=_(u'HTML Head'),
         description=_(u'This code will be included inside the head tag.'),
