@@ -28,6 +28,16 @@ class HtmlHeadViewlet(AdsHelperViewletBase):
         self.code = api.portal.get_registry_record(BASE_REGISTRY + 'html_head')
 
 
+class HeaderViewlet(AdsHelperViewletBase):
+
+    """Viewlet to be rendered at the top of the page."""
+
+    def update(self):
+        """Update viewlet with the content of the header record."""
+        self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
+        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'header')
+
+
 class AboveContentViewlet(AdsHelperViewletBase):
 
     """Viewlet to be rendered above the content of the page."""

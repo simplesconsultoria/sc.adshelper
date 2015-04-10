@@ -30,6 +30,13 @@ class IAdsHelperSettings(form.Schema):
         required=False,
     )
 
+    header = schema.Text(
+        title=_(u'Header'),
+        description=_(u'This code will be included at the top of the page.'),
+        default=u'',
+        required=False,
+    )
+
     above_content = schema.Text(
         title=_(u'Above Content'),
         description=_(u'This code will be included above the content of the page.'),

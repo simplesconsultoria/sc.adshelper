@@ -26,6 +26,15 @@
       />
 
   <browser:viewlet
+      name="adshelper.header"
+      class=".viewlets.HeaderViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+      template="templates/header.pt"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
       name="adshelper.abovecontent"
       class=".viewlets.AboveContentViewlet"
       manager="plone.app.layout.viewlets.interfaces.IAboveContent"
