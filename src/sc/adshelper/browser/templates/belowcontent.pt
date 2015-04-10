@@ -3,7 +3,10 @@
       tal:omit-tag="">
 
 <body tal:omit-tag="">
-  <tal:viewlet condition="viewlet/available" replace="viewlet/content" />
+  <div id="adshelper-belowcontent"
+      tal:condition="view/show"
+      tal:content="structure view/code"
+      />
 </body>
 
 </html>
