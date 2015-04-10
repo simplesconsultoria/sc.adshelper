@@ -35,6 +35,15 @@
       />
 
   <browser:viewlet
+      name="adshelper.belowcontentbody"
+      class=".viewlets.BelowContentBodyViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      template="templates/belowcontentbody.pt"
+      layer="sc.adshelper.interfaces.IBrowserLayer"
+      permission="zope2.View"
+      />
+
+  <browser:viewlet
       name="adshelper.belowcontent"
       class=".viewlets.BelowContentViewlet"
       manager="plone.app.layout.viewlets.interfaces.IBelowContent"

@@ -71,6 +71,10 @@ class RegistryTestCase(unittest.TestCase):
         self.assertTrue(hasattr(self.settings, 'above_content'))
         self.assertEqual(self.settings.above_content, u'')
 
+    def test_below_content_body_record_in_registry(self):
+        self.assertTrue(hasattr(self.settings, 'below_content_body'))
+        self.assertEqual(self.settings.below_content_body, u'')
+
     def test_below_content_record_in_registry(self):
         self.assertTrue(hasattr(self.settings, 'below_content'))
         self.assertEqual(self.settings.below_content, u'')
@@ -89,6 +93,7 @@ class RegistryTestCase(unittest.TestCase):
             BASE_REGISTRY + 'show_authenticated',
             BASE_REGISTRY + 'html_head',
             BASE_REGISTRY + 'above_content',
+            BASE_REGISTRY + 'below_content_body',
             BASE_REGISTRY + 'below_content',
             BASE_REGISTRY + 'footer',
         ]

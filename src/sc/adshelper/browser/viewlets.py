@@ -48,6 +48,16 @@ class BelowContentViewlet(AdsHelperViewletBase):
         self.code = api.portal.get_registry_record(BASE_REGISTRY + 'below_content')
 
 
+class BelowContentBodyViewlet(AdsHelperViewletBase):
+
+    """Viewlet to be rendered below the body of the content of the page."""
+
+    def update(self):
+        """Update viewlet with the content of the below_content record."""
+        self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
+        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'below_content_body')
+
+
 class FooterViewlet(AdsHelperViewletBase):
 
     """Viewlet to be rendered at the end of the page."""
