@@ -11,7 +11,8 @@ This package defines some helper viewlets to easily insert code on the layout of
 
 One use case is the insertion of ad code from sites like DoubleClick.
 
-The name comes from the `blue-line process`, a document reproduction produced by using the diazo chemical process.
+The name comes from the `blue-line process`_, a document reproduction produced by using the diazo chemical process.
+You already know the rest of the story.
 
 .. _`blue-line process`: https://en.wikipedia.org/wiki/Whiteprint
 
