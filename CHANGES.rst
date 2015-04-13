@@ -4,6 +4,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Do not show viewlets in the context of Diazo control panel configlet.
+  [hvelarde]
+
 - Set order for blueline.header viewlet on all skins.
   [hvelarde]
 

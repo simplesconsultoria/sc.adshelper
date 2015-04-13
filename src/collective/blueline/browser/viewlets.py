@@ -19,10 +19,15 @@ class BluelineViewletBase(ViewletBase):
         As a security measure, viewlets are never shown in the context
         of the configlet. This way we can revert the inclusion of any
         code that breaks the layout.
+
+        Viewlets are neither shown in the Diazo configlet.
         """
         context_state = api.content.get_view(
             u'plone_context_state', self.context, self.request)
-        is_configlet = '@@blueline-settings' in context_state.current_page_url()
+        void_configlets = ('@@blueline-settings', '@@theming-controlpanel')
+        is_configlet = False
+        for name in void_configlets:
+            is_configlet |= name in context_state.current_page_url()
         show = api.user.is_anonymous() or self.show_authenticated
         return not is_configlet and show
 

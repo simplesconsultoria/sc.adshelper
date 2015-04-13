@@ -16,6 +16,7 @@ class Fixture(PloneSandboxLayer):
         self.loadZCML(package=collective.blueline)
 
     def setUpPloneSite(self, portal):
+        self.applyProfile(portal, 'plone.app.theming:default')
         self.applyProfile(portal, 'collective.blueline:default')
 
 

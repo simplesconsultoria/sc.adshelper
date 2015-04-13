@@ -12,6 +12,7 @@ Suite Teardown  Close all browsers
 
 ${site_setup}  ${PLONE_URL}/@@overview-controlpanel
 ${blueline_configlet}  ${PLONE_URL}/@@blueline-settings
+${diazo_configlet}  ${PLONE_URL}/@@theming-controlpanel
 ${show_authenticated_locator}  css=#form-widgets-show_authenticated-0
 ${header_locator}  css=#form-widgets-header
 ${script}  <script>document.write('Hello' + ' ' + 'World!')</script>
@@ -22,6 +23,10 @@ ${message}  Hello World!
 Goto Blueline Configlet
     Go to  ${blueline_configlet}
     Page Should Contain  Blueline
+
+Goto Diazo Configlet
+    Go to  ${diazo_configlet}
+    Page Should Contain  Theme settings
 
 Populate Viewlet
     Goto Blueline Configlet
@@ -52,6 +57,12 @@ Test Viewlets as Authenticated
     Enable Show to Authenticated
     Go to Homepage
     Page Should Contain  ${message}
+
+    # viewlets should not be visible in the context of some configlets
+    Goto Blueline Configlet
+    Page Should Not Contain  ${message}
+    Goto Diazo Configlet
+    Page Should Not Contain  ${message}
 
 Test Viewlets as Anonymous
     Enable Autologin as  Manager
