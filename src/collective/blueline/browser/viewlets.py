@@ -23,7 +23,8 @@ class BluelineViewletBase(ViewletBase):
         context_state = api.content.get_view(
             u'plone_context_state', self.context, self.request)
         is_configlet = '@@blueline-settings' in context_state.current_page_url()
-        return not is_configlet and api.user.is_anonymous() or self.show_authenticated
+        show = api.user.is_anonymous() or self.show_authenticated
+        return not is_configlet and show
 
 
 class HtmlHeadViewlet(BluelineViewletBase):
