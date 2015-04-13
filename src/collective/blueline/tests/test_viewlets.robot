@@ -2,6 +2,7 @@
 
 Resource  plone/app/robotframework/keywords.robot
 Variables  plone/app/testing/interfaces.py
+
 Library  Remote  ${PLONE_URL}/RobotRemote
 
 Suite Setup  Open Test Browser
@@ -16,6 +17,22 @@ ${header_locator}  css=#form-widgets-header
 ${script}  <script>document.write('Hello' + ' ' + 'World!')</script>
 ${message}  Hello World!
 
+*** Keywords ***
+
+Goto Blueline Configlet
+    Go to  ${blueline_configlet}
+    Page Should Contain  Blueline
+
+Populate Viewlet
+    Goto Blueline Configlet
+    Input Text  ${header_locator}  ${script}
+    Click Button  Save
+
+Enable Show to Authenticated
+    Goto Blueline Configlet
+    Select Checkbox  ${show_authenticated_locator}
+    Click Button  Save
+
 *** Test cases ***
 
 Test Configlet
@@ -23,23 +40,22 @@ Test Configlet
     Go to  ${site_setup}
     Page Should Contain  Blueline
 
-Test Viewlets
+Test Viewlets as Authenticated
     Enable Autologin as  Manager
-    Go to  ${blueline_configlet}
-    Page Should Contain  Blueline
+    Populate Viewlet
 
     # viewlet code should not be visible to authenticated users by default
-    Input Text  ${header_locator}  ${script}
-    Click Button  Save
     Go to Homepage
     Page Should Not Contain  ${message}
 
     # make it visible
-    Go to  ${blueline_configlet}
-    Select Checkbox  ${show_authenticated_locator}
-    Click Button  Save
+    Enable Show to Authenticated
     Go to Homepage
     Page Should Contain  ${message}
 
-    Logout
+Test Viewlets as Anonymous
+    Enable Autologin as  Manager
+    Populate Viewlet
+    Disable Autologin
+    Go to Homepage
     Page Should Contain  ${message}
