@@ -3,7 +3,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 version = '1.0a1'
-description = 'Helper viewlets to manage ads code on a Plone site.'
+description = 'Helper viewlets to easily insert code on the layout of a Plone site.'
 long_description = (
     open('README.rst').read() + '\n' +
     open('CONTRIBUTORS.rst').read() + '\n' +
@@ -11,7 +11,7 @@ long_description = (
 )
 
 setup(
-    name='sc.adshelper',
+    name='collective.blueline',
     version=version,
     description=description,
     long_description=long_description,
@@ -31,10 +31,10 @@ setup(
     keywords='',
     author='Simples Consultoria',
     author_email='products@simplesconsultoria.com.br',
-    url='https://github.com/simplesconsultoria/sc.adshelper',
+    url='https://github.com/collective/collective.blueline',
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    namespace_packages=['sc'],
+    namespace_packages=['collective'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
