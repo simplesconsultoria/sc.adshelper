@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a2 (unreleased)
+1.0a2 (2015-04-30)
 ------------------
 
 - Do not show viewlets in the context of Diazo control panel configlet.
