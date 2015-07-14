@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0b2 (unreleased)
 ------------------
 
+- Add TAL evaluation to blueline viewlets (closes `#2`_).
+  [rodfersou]
+
 - Do not fail while adding a portlet under Plone 5 (closes `#10`_, HT @ale-rt).
   [hvelarde]
 
@@ -42,4 +45,5 @@ There's a frood who really knows where his towel is.
 - Initial release.
 
 .. _`#1`: https://github.com/simplesconsultoria/collective.blueline/issues/1
+.. _`#2`: https://github.com/simplesconsultoria/collective.blueline/issues/2
 .. _`#10`: https://github.com/simplesconsultoria/collective.blueline/issues/10
