@@ -4,8 +4,8 @@ Changelog
 1.0b1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add validation for html inserted into control panel (closes `#1`_).
+  [rodfersou]
 
 1.0a2 (2015-04-30)
 ------------------
@@ -21,3 +21,5 @@ Changelog
 ------------------
 
 - Initial release.
+
+.. _`#1`: https://github.com/simplesconsultoria/collective.blueline/issues/1

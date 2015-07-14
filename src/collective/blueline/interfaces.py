@@ -1,14 +1,36 @@
 # -*- coding: utf-8 -*-
+
+from collective.blueline import _
+from lxml import etree
 from plone.directives import form
 from plone.supermodel import model
-from collective.blueline import _
 from zope import schema
 from zope.interface import Interface
+from zope.interface import Invalid
 
 
 class IBrowserLayer(Interface):
 
     """A layer specific for this add-on product."""
+
+
+def validHtmlConstraint(value):
+    """Constraint to validate piece of HTML inserted into controlpanel
+
+    :param value: HTML data to be validated
+    :type value: unicode
+    :return: True if there is no problem
+    :rtype: bool
+    :raises:
+        :class:`~zope.interface.Invalid` if there is any problem with HTML data
+    """
+    if value:
+        parser = etree.HTMLParser(recover=False)
+        try:
+            etree.HTML(value, parser)
+        except Exception as e:
+            raise Invalid(_(u'Invalid HTML: ') + e.message)
+    return True
 
 
 class IBluelineSettings(model.Schema):
@@ -30,6 +52,7 @@ class IBluelineSettings(model.Schema):
         description=_(u'This code will be included inside the head tag.'),
         default=u'',
         required=False,
+        constraint=validHtmlConstraint
     )
 
     form.widget('header', cols=80, rows=10)
@@ -38,6 +61,7 @@ class IBluelineSettings(model.Schema):
         description=_(u'This code will be included at the top of the page.'),
         default=u'',
         required=False,
+        constraint=validHtmlConstraint
     )
 
     form.widget('above_content', cols=80, rows=10)
@@ -46,6 +70,7 @@ class IBluelineSettings(model.Schema):
         description=_(u'This code will be included above the content of the page.'),
         default=u'',
         required=False,
+        constraint=validHtmlConstraint
     )
 
     form.widget('below_content_body', cols=80, rows=10)
@@ -54,6 +79,7 @@ class IBluelineSettings(model.Schema):
         description=_(u'This code will be included below the body of the content of the page.'),
         default=u'',
         required=False,
+        constraint=validHtmlConstraint
     )
 
     form.widget('below_content', cols=80, rows=10)
@@ -62,6 +88,7 @@ class IBluelineSettings(model.Schema):
         description=_(u'This code will be included below the content of the page.'),
         default=u'',
         required=False,
+        constraint=validHtmlConstraint
     )
 
     form.widget('footer', cols=80, rows=10)
@@ -70,4 +97,5 @@ class IBluelineSettings(model.Schema):
         description=_(u'This code will be included at the end of the page.'),
         default=u'',
         required=False,
+        constraint=validHtmlConstraint
     )
