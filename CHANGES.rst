@@ -1,11 +1,14 @@
 Changelog
 =========
 
+There's a frood who really knows where his towel is.
+
 1.0b1 (unreleased)
 ------------------
 
-- Add validation for html inserted into control panel (closes `#1`_).
+- Add code validation for control panel configlet fields (closes `#1`_).
   [rodfersou]
+
 
 1.0a2 (2015-04-30)
 ------------------

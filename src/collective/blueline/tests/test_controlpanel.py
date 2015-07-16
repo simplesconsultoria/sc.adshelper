@@ -4,14 +4,13 @@ from collective.blueline.config import BASE_REGISTRY
 from collective.blueline.config import PROJECTNAME
 from collective.blueline.controlpanel import IBluelineSettings
 from collective.blueline.interfaces import IBrowserLayer
-from collective.blueline.interfaces import validHtmlConstraint
+from collective.blueline.interfaces import validCodeConstraint
 from collective.blueline.testing import INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import logout
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.interface import alsoProvides
-
 
 import unittest
 
@@ -110,7 +109,7 @@ class RegistryTestCase(unittest.TestCase):
             self.assertNotIn(r, self.registry)
 
 
-class HtmlValidationTestCase(unittest.TestCase):
+class CodeValidationTestCase(unittest.TestCase):
 
     layer = INTEGRATION_TESTING
 
@@ -136,7 +135,7 @@ class HtmlValidationTestCase(unittest.TestCase):
         <!-- End comScore Tag -->
         """
         with self.assertRaises(Exception):
-            validHtmlConstraint(html)
+            validCodeConstraint(html)
 
     def test_valid_html(self):
         html = """
@@ -156,4 +155,4 @@ class HtmlValidationTestCase(unittest.TestCase):
         </noscript>
         <!-- End comScore Tag -->
         """
-        self.assertTrue(validHtmlConstraint(html))
+        self.assertTrue(validCodeConstraint(html))
