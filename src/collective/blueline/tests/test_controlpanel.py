@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
-from plone import api
-from plone.app.testing import logout
-from plone.registry.interfaces import IRegistry
+
 from collective.blueline.config import BASE_REGISTRY
 from collective.blueline.config import PROJECTNAME
 from collective.blueline.controlpanel import IBluelineSettings
+from collective.blueline.interfaces import IBrowserLayer
+from collective.blueline.interfaces import validCodeConstraint
 from collective.blueline.testing import INTEGRATION_TESTING
+from plone import api
+from plone.app.testing import logout
+from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.interface import alsoProvides
-from collective.blueline.interfaces import IBrowserLayer
 
 import unittest
 
@@ -105,3 +107,52 @@ class RegistryTestCase(unittest.TestCase):
 
         for r in records:
             self.assertNotIn(r, self.registry)
+
+
+class CodeValidationTestCase(unittest.TestCase):
+
+    layer = INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+
+    def test_broken_html(self):
+        html = """
+        <meta name="google-site-verification" content="QCnEFOWFOE5QaOR7O6w4jL8SK_ZX0XNOuoyrM2NzG6c" />
+        <!-- Begin comScore Tag -->
+        <script>
+          var _comscore = _comscore || [];
+          _comscore.push({ c1: "2", c2: "20009819" });
+          (function() {
+            var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+            s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+            el.parentNode.insertBefore(s, el);
+          })();
+        </script>
+        <noscript>
+          <img src="http://b.scorecardresearch.com/p?c1=2&c2=20009819&cv=2.0&cj=1" />
+        </noscript>
+        <!-- End comScore Tag -->
+        """
+        with self.assertRaises(Exception):
+            validCodeConstraint(html)
+
+    def test_valid_html(self):
+        html = """
+        <meta name="google-site-verification" content="QCnEFOWFOE5QaOR7O6w4jL8SK_ZX0XNOuoyrM2NzG6c" />
+        <!-- Begin comScore Tag -->
+        <script>
+          var _comscore = _comscore || [];
+          _comscore.push({ c1: "2", c2: "20009819" });
+          (function() {
+            var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+            s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+            el.parentNode.insertBefore(s, el);
+          })();
+        </script>
+        <noscript>
+          <img src="http://b.scorecardresearch.com/p?c1=2&amp;c2=20009819&amp;cv=2.0&amp;cj=1" />
+        </noscript>
+        <!-- End comScore Tag -->
+        """
+        self.assertTrue(validCodeConstraint(html))
