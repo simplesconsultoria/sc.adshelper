@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.blueline import _
+from collective.blueline.interfaces import validCodeConstraint
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -15,6 +16,7 @@ class IBluelinePortlet(IPortletDataProvider):
     embed = schema.Text(
         title=_(u'Embedding code'),
         required=False,
+        constraint=validCodeConstraint,
     )
 
     title = schema.TextLine(
