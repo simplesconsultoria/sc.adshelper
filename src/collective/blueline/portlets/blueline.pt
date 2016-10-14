@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    tal:omit-tag="">
+  <div class="portlet portletBlueline"
+      tal:define="portlet_id python:id(view)"
+      i18n:domain="collective.blueline">
+    <div id="${string:blueline-$portlet_id}"
+        class="blueline-portlet">
+      <div class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <h3 class="portlet-blueline-title"
+            tal:content="view/data/title" />
+        <span class="portletTopRight"></span>
+      </div>
+      <div class="portletItem">
+        <p class="portlet-blueline-description"
+           tal:content="view/data/description" />
+        <div tal:replace="structure view/data/embed" />
+      </div>
+    </div>
+  </div>
+</html>
