@@ -1,22 +1,39 @@
 # -*- coding: utf-8 -*-
 from collective.blueline import _
-from collective.blueline.interfaces import validCodeConstraint
+from lxml import etree
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.formlib import form
 from zope.interface import implementer
+from zope.schema import ValidationError
+
+
+class InvalidHTMLCode(ValidationError):
+
+    """The code is not valid."""
+
+
+def validateHTMLCode(code):
+    """Validate code inserted into portlet."""
+    if code:
+        parser = etree.HTMLParser(recover=False)
+        try:
+            etree.HTML(code, parser)
+        except etree.XMLSyntaxError:
+            raise InvalidHTMLCode
+    return True
 
 
 class IBluelinePortlet(IPortletDataProvider):
 
-    '''Blueline Portlet.'''
+    """Blueline Portlet."""
 
     embed = schema.Text(
         title=_(u'Embedding code'),
         required=False,
-        constraint=validCodeConstraint,
+        constraint=validateHTMLCode,
     )
 
     title = schema.TextLine(
