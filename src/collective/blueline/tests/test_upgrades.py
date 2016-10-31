@@ -19,13 +19,12 @@ class UpgradesTestCase(unittest.TestCase):
 
     def test_latest_version(self):
         self.assertEqual(
-            self.setup.getLastVersionForProfile(self.profile)[0], u'1')
+            self.setup.getLastVersionForProfile(self.profile)[0], u'2')
 
     def _match(self, item, source, dest):
         source, dest = tuple([source]), tuple([dest])
         return item['source'] == source and item['dest'] == dest
 
-    @unittest.expectedFailure  # upgrade step not registered yet
     def test_to2_available(self):
         steps = listUpgradeSteps(self.setup, self.profile, '1')
         steps = [s for s in steps if self._match(s[0], '1', '2')]
