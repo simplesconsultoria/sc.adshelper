@@ -81,7 +81,6 @@ class PortletTest(unittest.TestCase):
         editview = getMultiAdapter((mapping['foo'], request), name='edit')
         self.assertTrue(isinstance(editview, bluelineprofile.EditForm))
 
-
     def test_obtain_renderer(self):
         context = self.portal
         request = self.request
