@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from collective.blueline import _
+from collective.blueline.interfaces import IBluelineSettings
 from lxml import etree
+from plone import api
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -30,46 +32,46 @@ class IBluelinePortlet(IPortletDataProvider):
 
     """Blueline Portlet."""
 
-    embed = schema.Text(
-        title=_(u'Embedding code'),
+    code = schema.Text(
+        title=_(u'Portlet code'),
+        description=_(u'This code will be included inside the portlet.'),
         required=False,
+        default=u'',
         constraint=validateHTMLCode,
-    )
-
-    title = schema.TextLine(
-        title=_(u'Title'),
-        required=False,
-    )
-
-    description = schema.Text(
-        title=_(u'Description'),
-        required=False,
     )
 
 
 @implementer(IBluelinePortlet)
 class Assignment(base.Assignment):
 
-    embed = None
-    title = None
-    description = None
+    code = u''
+    title = u'Blueline'
 
-    def __init__(self, embed=None, title=None, description=None):
-        self.embed = embed
-        self.title = title
-        self.description = description
+    def __init__(self, code=u''):
+        self.code = code
 
 
 class Renderer(base.Renderer):
 
+    # TODO: add template with Plone 5 markup
     render = ViewPageTemplateFile('blueline.pt')
+
+    @property
+    def available(self):
+        """Check if the portlet will be shown. By default, it will be
+        shown for anonymous users only; that can be changed in the
+        control panel configlet.
+        """
+        show_authenticated = api.portal.get_registry_record(
+            interface=IBluelineSettings, name='show_authenticated')
+        return api.user.is_anonymous() or show_authenticated
 
 
 class AddForm(base.AddForm):
 
     form_fields = form.Fields(IBluelinePortlet)
     label = _(u'Add Blueline Portlet')
-    description = _(u'This portlet embeds content from remote source.')
+    description = _(u'This portlet is used to insert HTML code.')
 
     def create(self, data):
         return Assignment(**data)
@@ -79,4 +81,4 @@ class EditForm(base.EditForm):
 
     form_fields = form.Fields(IBluelinePortlet)
     label = _(u'Edit Blueline Portlet')
-    description = _(u'This portlet embeds content from remote source.')
+    description = _(u'This portlet is used to insert HTML code.')

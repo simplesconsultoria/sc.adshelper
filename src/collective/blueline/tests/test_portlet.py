@@ -9,18 +9,17 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletRenderer
 from plone.portlets.interfaces import IPortletType
-from zope.component import getUtility, getMultiAdapter
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 
 import unittest
 
 
-HTML = (
-    u'<script>'
-    u'  var html = document.createElement("div");'
-    u'  html.innerHTML = "TEST";'
-    u'  document.body.appendChild(divtest);'
-    u'</script>'
-)
+HTML = u"""<script>
+  var html = document.createElement("div");
+  html.innerHTML = "TEST";
+  document.body.appendChild(divtest);
+</script>"""
 
 
 class PortletTest(unittest.TestCase):
@@ -38,11 +37,7 @@ class PortletTest(unittest.TestCase):
         self.assertEqual(portlet.addview, name)
 
     def test_interfaces(self):
-        portlet = bluelineprofile.Assignment(
-            embed=HTML,
-            title=u'Test',
-            description=u'Testing'
-        )
+        portlet = bluelineprofile.Assignment(code=HTML)
 
         self.assertTrue(IPortletAssignment.providedBy(portlet))
         self.assertTrue(IPortletDataProvider.providedBy(portlet.data))
@@ -57,11 +52,7 @@ class PortletTest(unittest.TestCase):
 
         addview = mapping.restrictedTraverse('+/' + portlet.addview)
 
-        addview.createAndAdd(data=dict(
-            embed=HTML,
-            title=u'Test',
-            description=u'Testing'
-        ))
+        addview.createAndAdd(data=dict(code=HTML))
 
         self.assertEqual(len(mapping), 1)
         self.assertIsInstance(mapping.values()[0], bluelineprofile.Assignment)
@@ -70,11 +61,7 @@ class PortletTest(unittest.TestCase):
         mapping = PortletAssignmentMapping()
         request = self.request
 
-        mapping['foo'] = bluelineprofile.Assignment(
-            embed=HTML,
-            title=u'Test',
-            description=u'Testing'
-        )
+        mapping['foo'] = bluelineprofile.Assignment(code=HTML)
 
         editview = getMultiAdapter((mapping['foo'], request), name='edit')
         self.assertIsInstance(editview, bluelineprofile.EditForm)
@@ -86,11 +73,7 @@ class PortletTest(unittest.TestCase):
         manager = getUtility(
             IPortletManager, name='plone.rightcolumn', context=self.portal)
 
-        assignment = bluelineprofile.Assignment(
-            embed=HTML,
-            title=u'Test',
-            description=u'Testing'
-        )
+        assignment = bluelineprofile.Assignment(code=HTML)
 
         renderer = getMultiAdapter(
             (context, request, view, manager, assignment), IPortletRenderer)
@@ -105,39 +88,33 @@ class RenderTest(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         self.request = self.layer['request']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portlet = self._get_portlet_renderer()
+        self.portlet.update()
 
-    def renderer(
-        self, context=None, request=None, view=None, manager=None, assignment=None
-    ):
-        if context is None:
-            context = self.portal
-        if request is None:
-            request = self.request
-        if view is None:
-            view = self.portal.restrictedTraverse('@@plone')
-        if manager is None:
-            manager = getUtility(
-                IPortletManager,
-                name='plone.rightcolumn',
-                context=self.portal
-            )
-        if assignment is None:
-            assignment = bluelineprofile.Assignment()
-
-        return getMultiAdapter(
+    def _get_portlet_renderer(self):
+        context, request = self.portal, self.request
+        view = self.portal.restrictedTraverse('@@plone')
+        manager = getUtility(
+            IPortletManager, name='plone.rightcolumn', context=self.portal)
+        assignment = bluelineprofile.Assignment(code=HTML)
+        renderer = getMultiAdapter(
             (context, request, view, manager, assignment), IPortletRenderer)
+        return renderer.__of__(self.portal)
 
-    def test_render(self):
-        assignment = bluelineprofile.Assignment(
-            embed=HTML,
-            title=u'Test',
-            description=u'Testing'
-        )
-        r = self.renderer(context=self.portal, assignment=assignment)
-        r = r.__of__(self.portal)
-        r.update()
-        output = r.render()
+    def test_render_authenticated(self):
+        output = self.portlet.render()
+        self.assertNotIn('html.innerHTML = "TEST";', output)
 
-        self.assertIn('<h3 class="portlet-blueline-title">Test</h3>', output)
+        from collective.blueline.controlpanel import IBluelineSettings
+        from plone.registry.interfaces import IRegistry
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IBluelineSettings)
+        settings.show_authenticated = True
+        output = self.portlet.render()
+        self.assertIn('html.innerHTML = "TEST";', output)
+
+    def test_render_anonymous(self):
+        from plone.app.testing import logout
+        logout()
+        output = self.portlet.render()
         self.assertIn('html.innerHTML = "TEST";', output)
