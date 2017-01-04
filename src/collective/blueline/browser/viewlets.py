@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Viewlets used on the package."""
+from collective.blueline.config import BASE_REGISTRY
 from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
-from collective.blueline.config import BASE_REGISTRY
 
 
 class BluelineViewletBase(ViewletBase):
