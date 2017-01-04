@@ -24,7 +24,6 @@
       />
 
   <utility factory=".setuphandlers.HiddenProfiles" name="collective.blueline" />
-  <utility factory=".setuphandlers.HiddenProducts" name="collective.blueline" />
 
   <!--include package=".upgrades" /-->
 

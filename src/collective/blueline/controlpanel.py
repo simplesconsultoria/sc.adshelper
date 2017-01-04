@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from plone.app.registry.browser import controlpanel
 from collective.blueline import _
 from collective.blueline.interfaces import IBluelineSettings
+from plone.app.registry.browser import controlpanel
 
 
 class BluelineSettingsEditForm(controlpanel.RegistryEditForm):
