@@ -10,7 +10,7 @@
       profile="collective.blueline:default">
 
     <genericsetup:upgradeDepends
-        title="Add blueline portlet"
+        title="Add Blueline portlet"
         description="Reload registration of portlet registry to add new portlet."
         import_steps="portlets"
         run_deps="false"
