@@ -2,19 +2,9 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     tal:omit-tag="">
 
-  <dl class="portlet portletBlueline" tal:condition="view/available">
-    <dt class="portletHeader">
-      <span class="portletTopLeft"></span>
-      <span class="portletTopRight"></span>
-    </dt>
-
-    <dd class="portletItem">
+  <aside class="portlet portletBlueline" tal:condition="view/available">
+    <div class="portletContent">
       <div tal:replace="structure view/data/code" />
-    </dd>
-
-    <dd class="portletFooter">
-      <span class="portletBottomLeft"></span>
-      <span class="portletBottomRight"></span>
-    </dd>
-  </dl>
+    </div>
+  </aside>
 </html>
