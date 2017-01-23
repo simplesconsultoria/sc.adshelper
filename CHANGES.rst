@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0b1 (unreleased)
 ------------------
 
+- Add Blueline portlet.
+  [rodfersou, cleberjsantos, hvelarde]
+
 - Add code validation for control panel configlet fields (closes `#1`_).
   [rodfersou]
 
