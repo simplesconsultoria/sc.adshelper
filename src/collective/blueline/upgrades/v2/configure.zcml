@@ -2,28 +2,19 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.blueline">
-
-  <genericsetup:registerProfile
-      name="default"
-      title="collective.blueline: v2"
-      directory="profile"
-      description="Do something."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      i18n:attributes="title; description"
-      />
 
   <genericsetup:upgradeSteps
       source="1"
       destination="2"
       profile="collective.blueline:default">
 
-      <genericsetup:upgradeStep
-          title="Do something"
-          description="Do something."
-          handler=".apply_profile"
-          />
+    <genericsetup:upgradeDepends
+        title="Add Blueline portlet"
+        description="Reload registration of portlet registry to add new portlet."
+        import_steps="portlets"
+        run_deps="false"
+        />
 
   </genericsetup:upgradeSteps>
 

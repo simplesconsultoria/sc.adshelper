@@ -25,6 +25,6 @@
 
   <utility factory=".setuphandlers.HiddenProfiles" name="collective.blueline" />
 
-  <!--include package=".upgrades" /-->
+  <include package=".upgrades" />
 
 </configure>
