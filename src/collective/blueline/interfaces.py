@@ -2,7 +2,7 @@
 
 from collective.blueline import _
 from lxml import etree
-from plone.directives import form
+from plone.autoform import directives as form
 from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
