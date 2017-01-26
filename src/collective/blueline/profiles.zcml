@@ -16,7 +16,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="collective.blueline: unistall"
+      title="collective.blueline: uninstall"
       directory="profiles/uninstall"
       description="Remove collective.blueline package."
       provides="Products.GenericSetup.interfaces.EXTENSION"

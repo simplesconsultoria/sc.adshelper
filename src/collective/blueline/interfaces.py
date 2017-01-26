@@ -40,7 +40,7 @@ class IBluelineSettings(model.Schema):
     show_authenticated = schema.Bool(
         title=_(u'Show to authenticated users?'),
         description=_(
-            u'By default, viewlets will be visible for anonymous users only.'
+            u'By default, viewlets will be visible for anonymous users only. '
             u'If selected, the code will be shown to authenticated users also.'
         ),
         default=False,
