@@ -6,6 +6,9 @@ There's a frood who really knows where his towel is.
 1.0b1 (unreleased)
 ------------------
 
+- Remove dependency on five.grok (closes `#8`_).
+  [rodfersou]
+
 - Add Brazilian Portuguese and Spanish translations.
   [hvelarde]
 
@@ -32,3 +35,4 @@ There's a frood who really knows where his towel is.
 - Initial release.
 
 .. _`#1`: https://github.com/simplesconsultoria/collective.blueline/issues/1
+.. _`#8`: https://github.com/simplesconsultoria/collective.blueline/issues/8

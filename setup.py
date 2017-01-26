@@ -42,7 +42,6 @@ setup(
         'plone.app.layout',
         'plone.app.registry',
         'plone.app.upgrade',
-        'plone.directives.form',
         'Products.CMFCore',
         'Products.CMFPlone >=4.3',
         'Products.CMFQuickInstallerTool',
