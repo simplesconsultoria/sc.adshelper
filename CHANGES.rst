@@ -6,7 +6,8 @@ There's a frood who really knows where his towel is.
 1.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not fail while adding a portlet under Plone 5 (closes `#10`_, HT @ale-rt).
+  [hvelarde]
 
 
 1.0b1 (2017-01-26)
@@ -41,3 +42,4 @@ There's a frood who really knows where his towel is.
 - Initial release.
 
 .. _`#1`: https://github.com/simplesconsultoria/collective.blueline/issues/1
+.. _`#10`: https://github.com/simplesconsultoria/collective.blueline/issues/10
