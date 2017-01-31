@@ -69,6 +69,7 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
 
+    schema = IBluelinePortlet
     form_fields = form.Fields(IBluelinePortlet)
     label = _(u'Add Blueline Portlet')
     description = _(u'This portlet is used to insert HTML code.')
@@ -79,6 +80,7 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
 
+    schema = IBluelinePortlet
     form_fields = form.Fields(IBluelinePortlet)
     label = _(u'Edit Blueline Portlet')
     description = _(u'This portlet is used to insert HTML code.')
