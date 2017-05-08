@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """Viewlets used on the package."""
 from collective.blueline.config import BASE_REGISTRY
+from os import path
 from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+import tempfile
 
 
 class BluelineViewletBase(ViewletBase):
@@ -31,6 +35,38 @@ class BluelineViewletBase(ViewletBase):
         show = api.user.is_anonymous() or self.show_authenticated
         return not is_configlet and show
 
+    def get_template(self, name, data):
+        """Evaluate TAL variables inserted into blueline controlpanel options.
+        We need a temporary file with page template to evaluate variables using
+        TAL machinary.
+
+        :param name: name of blueline registry with code
+        :type name: string
+        :param data: data of blueline registry with code
+        :type data: unicode
+        :returns: page template ready to be evaluated
+        :rtype: ViewPageTemplateFile
+        """
+        filename = 'collective.blueline.{0}.pt'.format(name)
+        filename = path.join(tempfile.tempdir, filename)
+        with open(filename, 'w') as f:
+            f.write(data)
+        return ViewPageTemplateFile(filename)
+
+    def evaluate_code(self, name):
+        """Evaluate TAL variables inserted into blueline controlpanel options.
+
+        :param name: name of blueline registry with code
+        :type name: string
+        :returns: code with variables evaluated
+        :rtype: unicode
+        """
+        data = api.portal.get_registry_record(BASE_REGISTRY + name)
+        if data is None or data == '':
+            return None
+        template = self.get_template(name, data)
+        return template(self)
+
 
 class HtmlHeadViewlet(BluelineViewletBase):
 
@@ -39,7 +75,7 @@ class HtmlHeadViewlet(BluelineViewletBase):
     def update(self):
         """Update viewlet with the content of the html_head record."""
         self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
-        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'html_head')
+        self.code = self.evaluate_code('html_head')
 
 
 class HeaderViewlet(BluelineViewletBase):
@@ -49,7 +85,7 @@ class HeaderViewlet(BluelineViewletBase):
     def update(self):
         """Update viewlet with the content of the header record."""
         self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
-        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'header')
+        self.code = self.evaluate_code('header')
 
 
 class AboveContentViewlet(BluelineViewletBase):
@@ -59,7 +95,7 @@ class AboveContentViewlet(BluelineViewletBase):
     def update(self):
         """Update viewlet with the content of the above_content record."""
         self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
-        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'above_content')
+        self.code = self.evaluate_code('above_content')
 
 
 class BelowContentViewlet(BluelineViewletBase):
@@ -69,7 +105,7 @@ class BelowContentViewlet(BluelineViewletBase):
     def update(self):
         """Update viewlet with the content of the below_content record."""
         self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
-        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'below_content')
+        self.code = self.evaluate_code('below_content')
 
 
 class BelowContentBodyViewlet(BluelineViewletBase):
@@ -79,7 +115,7 @@ class BelowContentBodyViewlet(BluelineViewletBase):
     def update(self):
         """Update viewlet with the content of the below_content record."""
         self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
-        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'below_content_body')
+        self.code = self.evaluate_code('below_content_body')
 
 
 class FooterViewlet(BluelineViewletBase):
@@ -89,4 +125,4 @@ class FooterViewlet(BluelineViewletBase):
     def update(self):
         """Update viewlet with the content of the footer record."""
         self.show_authenticated = api.portal.get_registry_record(BASE_REGISTRY + 'show_authenticated')
-        self.code = api.portal.get_registry_record(BASE_REGISTRY + 'footer')
+        self.code = self.evaluate_code('footer')
