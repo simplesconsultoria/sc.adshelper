@@ -19,13 +19,13 @@ You already know the rest of the story.
 Mostly Harmless
 ===============
 
-.. image:: https://secure.travis-ci.org/simplesconsultoria/collective.blueline.png?branch=master
+.. image:: https://secure.travis-ci.org/collective/collective.blueline.png?branch=master
     :alt: Travis CI badge
-    :target: http://travis-ci.org/simplesconsultoria/collective.blueline
+    :target: http://travis-ci.org/collective/collective.blueline
 
-.. image:: https://coveralls.io/repos/simplesconsultoria/collective.blueline/badge.png?branch=master
+.. image:: https://coveralls.io/repos/collective/collective.blueline/badge.png?branch=master
     :alt: Coveralls badge
-    :target: https://coveralls.io/r/simplesconsultoria/collective.blueline
+    :target: https://coveralls.io/r/collective/collective.blueline
 
 .. image:: https://pypip.in/d/collective.blueline/badge.png
     :alt: Downloads
@@ -33,7 +33,7 @@ Mostly Harmless
 
 Got an idea? Found a bug? Let us know by `opening a support ticket`_.
 
-.. _`opening a support ticket`: https://github.com/simplesconsultoria/collective.blueline/issues
+.. _`opening a support ticket`: https://github.com/collective/collective.blueline/issues
 
 Don't Panic
 ===========

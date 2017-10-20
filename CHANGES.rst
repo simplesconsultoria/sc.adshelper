@@ -41,5 +41,5 @@ There's a frood who really knows where his towel is.
 
 - Initial release.
 
-.. _`#1`: https://github.com/simplesconsultoria/collective.blueline/issues/1
-.. _`#10`: https://github.com/simplesconsultoria/collective.blueline/issues/10
+.. _`#1`: https://github.com/collective/collective.blueline/issues/1
+.. _`#10`: https://github.com/collective/collective.blueline/issues/10
